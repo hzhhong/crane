@@ -94,7 +94,7 @@ test: fmt vet lint ## Run tests.
 	go test -coverprofile coverage.out -covermode=atomic ./...
 
 .PHONY: git-sync-126
-git-sync:
+git-sync-126:
 	git checkout resource-recommender-extension-1-26
 	git push -u origin resource-recommender-extension-1-26
 	git checkout resource-recommender-extension-1-26-sync
