@@ -93,6 +93,18 @@ lint: golangci-lint  ## Run golang lint against code
 test: fmt vet lint ## Run tests.
 	go test -coverprofile coverage.out -covermode=atomic ./...
 
+.PHONY: git-sync-126
+git-sync:
+	git checkout resource-recommender-extension-1-26
+	git push -u origin resource-recommender-extension-1-26
+	git checkout resource-recommender-extension-1-26-sync
+	git-filter-repo --email-callback 'return email.replace(b"hung.z.h916@gmail.com", b"huangzhihong27@bgyfw.com")' --force --refs resource-recommender-extension-1-26-sync
+	git-filter-repo --name-callback '
+		newname="黄志鸿".encode("utf-8")
+		return name.replace(b"hzhhong", newname)
+	' --force --refs resource-recommender-extension-1-26-sync
+	git push -u sync resource-recommender-extension-1-26-sync:resource-recommender-extension-1-26
+
 .PHONY: echoLDFLAGS
 echoLDFLAGS:
 	@echo $(LDFLAGS)
